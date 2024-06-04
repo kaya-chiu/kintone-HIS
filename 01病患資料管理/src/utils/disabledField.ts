@@ -1,3 +1,5 @@
+import { KintoneTypes } from '../dts/types'
+
 const disabledField = (
   fieldCodes: (keyof KintoneTypes.Patient)[],
   event: Event

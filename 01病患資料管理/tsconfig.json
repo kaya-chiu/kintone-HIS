@@ -22,8 +22,8 @@
   },
   "files": [
     "./node_modules/@kintone/dts-gen/kintone.d.ts",
-    "src/dts/types.d.ts",
-    "./node_modules/kchelper/kchelper.d.ts"
+    "./node_modules/kchelper/kchelper.d.ts",
+    "./src/dts/types.d.ts"
   ],
   "include": ["src/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
