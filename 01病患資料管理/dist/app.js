@@ -1,0 +1,1 @@
+(function(){"use strict";const r=(e,o)=>{e.forEach(d=>o.record[d].disabled=!0)};kintone.events.on(["app.record.create.show","app.record.edit.show","app.record.index.edit.show","mobile.app.record.create.show","mobile.app.record.edit.show"],e=>(r(["病歷號碼","年齡","預欠收_台幣","預欠收_美金"],e),e))})();
