@@ -17,7 +17,6 @@ declare namespace kintone.types {
     就診類別: kintone.fieldTypes.SingleLineText;
     療程別: kintone.fieldTypes.SingleLineText;
     就診日期: kintone.fieldTypes.Date;
-
     看診醫師: kintone.fieldTypes.UserSelect;
     主治醫師: kintone.fieldTypes.UserSelect;
   }
