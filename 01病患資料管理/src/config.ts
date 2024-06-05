@@ -14,6 +14,10 @@ interface Config {
   },
   fc: {
     patient: KintoneTypes.Fc<keyof KintoneTypes.Patient>
+  },
+  el: {
+    examinationEl: '.field-5739765',
+    accountGroupEl: '.field-5739681'
   }
 }
 
@@ -113,6 +117,10 @@ const config: Config = {
       單窗: '單窗',
       主治醫師: '主治醫師'
     }
+  },
+  el: {
+    examinationEl: '.field-5739765',
+    accountGroupEl: '.field-5739681'
   }
 }
 
