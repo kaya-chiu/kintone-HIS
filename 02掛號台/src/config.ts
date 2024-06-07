@@ -14,6 +14,7 @@ interface Config {
   },
   fc: {
     appo: KintoneTypes.Fc<keyof KintoneTypes.Appo>
+    sch: KintoneTypes.Fc<keyof KintoneTypes.Sch>
   }
 }
 
@@ -108,6 +109,22 @@ const config: Config = {
       就診日期: '就診日期',
       看診醫師: '看診醫師',
       主治醫師: '主治醫師',
+    },
+    sch: {
+      $id: '$id',
+      $revision: '$revision',
+      更新人: '更新人',
+      建立人: '建立人',
+      記錄號碼: '記錄號碼',
+      更新時間: '更新時間',
+      建立時間: '建立時間',
+      門診時段: '門診時段',
+      門診別: '門診別',
+      看診醫師: '看診醫師',
+      星期: '星期',
+      日期: '日期',
+      人數上限: '人數上限',
+      代診: '代診'
     }
   }
 }

@@ -33,6 +33,16 @@ declare namespace KintoneTypes {
     主治醫師: KintoneRecordField.UserSelect;
   }
 
+  type Sch = Base & {
+    門診時段: KintoneRecordField.DropDown;
+    門診別: KintoneRecordField.DropDown;
+    星期: KintoneRecordField.SingleLineText;
+    日期: KintoneRecordField.Date;
+    人數上限: KintoneRecordField.Calc;
+    代診: KintoneRecordField.CheckBox;
+    看診醫師: KintoneRecordField.UserSelect;
+  }
+
   type Fc<T extends string> = {
     [key in T]: `${key}`
   }
@@ -41,7 +51,15 @@ declare namespace KintoneTypes {
     interface Appo {
       type: string,
       record?: KintoneTypes.Appo
-      records?: (KintoneTypes.Appo)[]
+      records?: (KintoneTypes.Appo)[],
+      error?: string
+    }
+
+    interface Sch {
+      type: string,
+      record?: KintoneTypes.Sch
+      records?: (KintoneTypes.Sch)[],
+      error?: string
     }
   }
 }
