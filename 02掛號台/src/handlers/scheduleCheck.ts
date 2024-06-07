@@ -9,15 +9,20 @@ const scheduleCheck = async (event: KintoneTypes.E.Appo) => {
   const record = event.record!
   const clinic = record.門診別.value!
 
+  // 非選擇一位看診醫師則報錯
+  if (record.看診醫師.value.length !== 1) {
+    event.error = '必須且僅能選擇一位看診醫師'
+    return event
+  }
+
   // 如果門診別不包含在變數「checkList」內，則直接返回（不用檢查門診表）
   if (!checkList.includes(clinic)) {
     if (!record.門診表記錄號碼.value) return event
 
-    // 如果之前存在門診表記錄號碼，則更新記錄並重整
+    // 如果之前存在門診表記錄號碼，則更新記錄
     if (config.events.all.success.includes(event.type)) {
       const recordId = kintone.app.record.getId()!
-      putScheduleId(recordId, '')
-      setTimeout(() => location.reload(), 300)
+      await putScheduleId(recordId, '')
     }
     return event
   }
@@ -33,16 +38,21 @@ const scheduleCheck = async (event: KintoneTypes.E.Appo) => {
     return event
   }
 
+  // 如果看診醫師不符，則報錯
+  if (record.看診醫師.value[0].code !== schedule.看診醫師.value[0].code) {
+    event.error = `此門診看診醫師為${schedule.看診醫師.value[0].name}醫師`
+    return event
+  }
+
   if (config.events.all.success.includes(event.type)) {
     const scheduleId = schedule.記錄號碼.value
     
     // 如果門診表記錄號碼沒有變動，則直接返回（不更新記錄）
     if (record.門診表記錄號碼.value === scheduleId) return event
 
-    // 更新記錄 & 重新整理頁面（畫面上的「門診表記錄號碼」要重整才會更新）
+    // 更新記錄
     const recordId = kintone.app.record.getId()!
-    putScheduleId(recordId, scheduleId)
-    setTimeout(() => location.reload(), 300)
+    await putScheduleId(recordId, scheduleId)
     return event
   }
   
