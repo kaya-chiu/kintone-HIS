@@ -25,4 +25,4 @@ kintone.events.on([
   ...config.events.all.success
 ], scheduleCheck)
 
-kintone.events.on(config.events.create.submit, dateCheck)
+kintone.events.on(config.events.all.submit, dateCheck)
