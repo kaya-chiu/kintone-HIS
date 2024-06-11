@@ -41,6 +41,7 @@ declare namespace KintoneTypes {
     人數上限: KintoneRecordField.Calc;
     代診: KintoneRecordField.CheckBox;
     看診醫師: KintoneRecordField.UserSelect;
+    門診時段編號: KintoneRecordField.SingleLineText;
   }
 
   type Fc<T extends string> = {

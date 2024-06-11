@@ -15,6 +15,12 @@ interface Config {
   fc: {
     appo: KintoneTypes.Fc<keyof KintoneTypes.Appo>
     sch: KintoneTypes.Fc<keyof KintoneTypes.Sch>
+  },
+  sp: {
+    search: string
+  },
+  el: {
+    spacer: string
   }
 }
 
@@ -124,8 +130,15 @@ const config: Config = {
       星期: '星期',
       日期: '日期',
       人數上限: '人數上限',
-      代診: '代診'
+      代診: '代診',
+      門診時段編號: '門診時段編號'
     }
+  },
+  sp: {
+    search: 'opd-search'
+  },
+  el: {
+    spacer: '.control-spacer-field-gaia'
   }
 }
 
