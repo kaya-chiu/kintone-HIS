@@ -3,7 +3,10 @@ import { KintoneTypes } from '../dts/types'
 import config from '../config'
 
 const SCH_APP_ID = 66
-const req = new KintoneRestAPIClient()
+const TOKEN = import.meta.env.VITE_API_TOKEN_SCH
+const req = new KintoneRestAPIClient({
+  auth: { apiToken: TOKEN }
+})
 
 export const getSchedule = async (date: string, timeSlot: string, clinic: string) => {
   const res = await req.record.getRecords<KintoneTypes.Sch>({

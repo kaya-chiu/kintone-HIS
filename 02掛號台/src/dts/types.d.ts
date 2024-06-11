@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import type { KintoneRecordField } from '@kintone/rest-api-client'
 
 declare namespace KintoneTypes {
