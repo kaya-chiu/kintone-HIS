@@ -21,7 +21,7 @@ const scheduleCheck = async (event: KintoneTypes.E.Appo) => {
 
     // 如果之前存在門診表記錄號碼，則更新記錄
     if (config.events.all.success.includes(event.type)) {
-      const recordId = kintone.app.record.getId()!
+      const recordId = event.record!.$id.value
       await putScheduleId(recordId, '')
     }
     return event
@@ -51,7 +51,7 @@ const scheduleCheck = async (event: KintoneTypes.E.Appo) => {
     if (record.門診表記錄號碼.value === scheduleId) return event
 
     // 更新記錄
-    const recordId = kintone.app.record.getId()!
+    const recordId = event.record!.$id.value
     await putScheduleId(recordId, scheduleId)
     return event
   }

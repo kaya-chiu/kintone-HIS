@@ -130,9 +130,6 @@ const ScheduleTable: React.FC<Props> = ({ records, setOpen }) => {
         appo.門診時段.value = record.門診時段.value
         appo.門診別.value = record.門診別.value
         appo.看診醫師.value = record.看診醫師.value
-        appo.門診表記錄號碼.value = record.記錄號碼.value
-        // @ts-expect-error: 帶入門診表記錄號碼
-        appo.門診表記錄號碼.lookup = true
         setRecord(appo, isMobile(event))
         setOpen(false)
       }

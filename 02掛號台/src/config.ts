@@ -15,6 +15,7 @@ interface Config {
   fc: {
     appo: KintoneTypes.Fc<keyof KintoneTypes.Appo>
     sch: KintoneTypes.Fc<keyof KintoneTypes.Sch>
+    opd: KintoneTypes.Fc<keyof KintoneTypes.Opd>
   },
   sp: {
     search: string
@@ -132,6 +133,14 @@ const config: Config = {
       人數上限: '人數上限',
       代診: '代診',
       門診時段編號: '門診時段編號'
+    },
+    opd: {
+      身份別: '身份別',
+      掛號流水號: '掛號流水號',
+      病歷號碼: '病歷號碼',
+      就診類別: '就診類別',
+      病歷記錄流水號: '病歷記錄流水號',
+      $id: '$id'
     }
   },
   sp: {

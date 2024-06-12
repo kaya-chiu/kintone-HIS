@@ -45,6 +45,15 @@ declare namespace KintoneTypes {
     門診時段編號: KintoneRecordField.SingleLineText;
   }
 
+  type Opd = {
+    病歷號碼: kintone.fieldTypes.SingleLineText;
+    掛號流水號: kintone.fieldTypes.SingleLineText;
+    就診類別: kintone.fieldTypes.SingleLineText;
+    身份別: kintone.fieldTypes.SingleLineText;
+    病歷記錄流水號: kintone.fieldTypes.SingleLineText;
+    $id: KintoneRecordField.Id;
+  }
+
   type Fc<T extends string> = {
     [key in T]: `${key}`
   }
@@ -54,7 +63,10 @@ declare namespace KintoneTypes {
       type: string,
       record?: KintoneTypes.Appo
       records?: (KintoneTypes.Appo)[],
-      error?: string
+      error?: string,
+      action?: { value: string },
+      nextStatus?: { value: string },
+      status?: { value: string },
     }
 
     interface Sch {

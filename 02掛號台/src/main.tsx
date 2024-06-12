@@ -8,6 +8,7 @@ import scheduleCheck from './handlers/scheduleCheck'
 import ReactDOM from 'react-dom/client'
 import OpdSearchButton from './components/OpdSearchButton'
 import './main.css'
+import checkin from './handlers/checkin'
 
 // ** Events **
 // 門診搜尋按鈕
@@ -42,3 +43,9 @@ kintone.events.on([
   ...config.events.all.submit,
   ...config.events.all.success
 ], scheduleCheck)
+
+// 報到流程
+kintone.events.on([
+  'app.record.detail.process.proceed',
+  'mobile.app.record.detail.process.proceed'
+], checkin)
