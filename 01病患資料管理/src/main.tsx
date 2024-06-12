@@ -26,7 +26,7 @@ kintone.events.on(config.events.all.show, event => {
 })
 
 // 病歷號碼自動編碼
-kintone.events.on(config.events.create.show, autoId)
+kintone.events.on(config.events.create.submit, autoId)
 
 // 自動計算當前年齡
 kintone.events.on([
