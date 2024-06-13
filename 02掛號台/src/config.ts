@@ -140,6 +140,7 @@ const config: Config = {
       病歷號碼: '病歷號碼',
       就診類別: '就診類別',
       病歷記錄流水號: '病歷記錄流水號',
+      Subjective: 'Subjective',
       $id: '$id'
     }
   },

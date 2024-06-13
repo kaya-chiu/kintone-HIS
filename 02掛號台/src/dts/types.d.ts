@@ -51,6 +51,7 @@ declare namespace KintoneTypes {
     就診類別: kintone.fieldTypes.SingleLineText;
     身份別: kintone.fieldTypes.SingleLineText;
     病歷記錄流水號: kintone.fieldTypes.SingleLineText;
+    Subjective: kintone.fieldTypes.MultiLineText;
     $id: KintoneRecordField.Id;
   }
 

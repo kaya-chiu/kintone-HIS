@@ -25,7 +25,10 @@ const checkin = async (event: KintoneTypes.E.Appo) => {
       病歷號碼: record.病歷號碼,
       掛號流水號: record.掛號流水號,
       就診類別: record.就診類別,
-      身份別: record.身份別
+      身份別: record.身份別,
+      Subjective: {
+        value: record.掛號備註.value
+      }
     }
     
     // 特別門診、雲端門診報到時，建立新門診記錄並開啟編輯頁面
