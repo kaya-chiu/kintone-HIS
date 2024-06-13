@@ -1,0 +1,16 @@
+{
+  "app": "55",
+  "scope": "ALL",
+  "desktop": {
+    "js": [
+      "https://localhost:4173/app.js"
+    ],
+    "css": []
+  },
+  "mobile": {
+    "js": [
+      "https://localhost:4173/app.js"
+    ],
+    "css": []
+  }
+}
