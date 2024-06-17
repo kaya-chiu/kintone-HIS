@@ -1,0 +1,7 @@
+/* 隱藏檢驗表格的「分管設定」欄位 */
+th.label-5740098 {
+  display: none;
+}
+table.subtable-5739548 tbody tr td:last-child {
+  display: none;
+}

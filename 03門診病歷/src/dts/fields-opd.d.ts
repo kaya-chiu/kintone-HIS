@@ -1,7 +1,6 @@
 declare namespace kintone.types {
   interface Fields {
     預設劑量: kintone.fieldTypes.Number;
-    分管組合搜尋: kintone.fieldTypes.SingleLineText;
     檢驗價格3: kintone.fieldTypes.Number;
     姓名: kintone.fieldTypes.SingleLineText;
     檢驗價格2: kintone.fieldTypes.Number;
@@ -102,6 +101,7 @@ declare namespace kintone.types {
           成數_檢驗: kintone.fieldTypes.Number;
           檢驗日期: kintone.fieldTypes.Date;
           檢驗單價: kintone.fieldTypes.Number;
+          分管組合: kintone.fieldTypes.SingleLineText;
           檢驗代碼: kintone.fieldTypes.SingleLineText;
           檢驗單狀態: kintone.fieldTypes.DropDown;
           檢驗名稱: kintone.fieldTypes.SingleLineText;

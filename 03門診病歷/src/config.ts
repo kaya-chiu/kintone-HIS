@@ -14,13 +14,17 @@ interface Config {
   },
   fc: {
     opd: KintoneTypes.Fc<keyof KintoneTypes.Opd>
+    exam: KintoneTypes.Fc<keyof KintoneTypes.ExamField>
   },
-  // sp: {
-  //   search: string
-  // },
-  // el: {
-  //   spacer: string
-  // }
+  sp: {
+    medicineSearch: string,
+    treatmentSearch: string,
+    examinationSearch: string,
+    exam: string
+  },
+  el: {
+    spacer: string
+  }
 }
 
 const config: Config = {
@@ -96,7 +100,6 @@ const config: Config = {
       更新時間: '更新時間',
       建立時間: '建立時間',
       預設劑量: '預設劑量',
-      分管組合搜尋: '分管組合搜尋',
       檢驗價格3: '檢驗價格3',
       姓名: '姓名',
       檢驗價格2: '檢驗價格2',
@@ -156,7 +159,28 @@ const config: Config = {
       處置: '處置',
       用藥: '用藥',
       檢驗: '檢驗'
+    },
+    exam: {
+      檢驗備註: '檢驗備註',
+      檢驗單號: '檢驗單號',
+      成數_檢驗: '成數_檢驗',
+      檢驗日期: '檢驗日期',
+      檢驗單價: '檢驗單價',
+      分管組合: '分管組合',
+      檢驗代碼: '檢驗代碼',
+      檢驗單狀態: '檢驗單狀態',
+      檢驗名稱: '檢驗名稱',
+      檢驗費小計: '檢驗費小計'
     }
+  },
+  sp: {
+    medicineSearch: 'medicine-search',
+    treatmentSearch: 'treatment-search',
+    examinationSearch: 'examination-search',
+    exam: 'examination'
+  },
+  el: {
+    spacer: '.control-spacer-field-gaia'
   }
 }
 

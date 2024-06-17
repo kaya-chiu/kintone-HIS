@@ -14,7 +14,6 @@ declare namespace KintoneTypes {
 
   type Opd = Base & {
     預設劑量: kintone.fieldTypes.Number;
-    分管組合搜尋: kintone.fieldTypes.SingleLineText;
     檢驗價格3: kintone.fieldTypes.Number;
     姓名: kintone.fieldTypes.SingleLineText;
     檢驗價格2: kintone.fieldTypes.Number;
@@ -73,7 +72,7 @@ declare namespace KintoneTypes {
     單窗: kintone.fieldTypes.UserSelect;
     主治醫師: kintone.fieldTypes.UserSelect;
     處置: {
-      type: 'SUBTABLE'
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {
@@ -84,11 +83,11 @@ declare namespace KintoneTypes {
           數量_處置: kintone.fieldTypes.Number;
           處置單價: kintone.fieldTypes.Number;
           處置費小計: kintone.fieldTypes.Calc;
-        }
-      }>
+        };
+      }>;
     };
     用藥: {
-      type: 'SUBTABLE'
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {
@@ -102,11 +101,11 @@ declare namespace KintoneTypes {
           用藥備註: kintone.fieldTypes.SingleLineText;
           頻率: kintone.fieldTypes.SingleLineText;
           藥費小計: kintone.fieldTypes.Calc;
-        }
-      }>
+        };
+      }>;
     };
     檢驗: {
-      type: 'SUBTABLE'
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {
@@ -115,13 +114,46 @@ declare namespace KintoneTypes {
           成數_檢驗: kintone.fieldTypes.Number;
           檢驗日期: kintone.fieldTypes.Date;
           檢驗單價: kintone.fieldTypes.Number;
+          分管組合: kintone.fieldTypes.SingleLineText;
           檢驗代碼: kintone.fieldTypes.SingleLineText;
           檢驗單狀態: kintone.fieldTypes.DropDown;
           檢驗名稱: kintone.fieldTypes.SingleLineText;
           檢驗費小計: kintone.fieldTypes.Calc;
-        }
-      }>
+        };
+      }>;
     };
+  }
+
+  type ExamField = {
+    檢驗備註: kintone.fieldTypes.SingleLineText;
+    檢驗單號: kintone.fieldTypes.SingleLineText;
+    成數_檢驗: kintone.fieldTypes.Number;
+    檢驗日期: kintone.fieldTypes.Date;
+    檢驗單價: kintone.fieldTypes.Number;
+    分管組合: kintone.fieldTypes.SingleLineText;
+    檢驗代碼: kintone.fieldTypes.SingleLineText;
+    檢驗單狀態: kintone.fieldTypes.DropDown;
+    檢驗名稱: kintone.fieldTypes.SingleLineText;
+    檢驗費小計: kintone.fieldTypes.Calc;
+  }
+
+  type ExamTable = {
+    id: string;
+    value: ExamField
+  }
+
+  type EDB = Base & {
+    啟用狀態: kintone.fieldTypes.RadioButton;
+    參考值上限: kintone.fieldTypes.SingleLineText;
+    參考值下限: kintone.fieldTypes.SingleLineText;
+    檢驗代碼: kintone.fieldTypes.SingleLineText;
+    價格3: kintone.fieldTypes.Number;
+    採檢容器種類: kintone.fieldTypes.SingleLineText;
+    檢驗數值單位: kintone.fieldTypes.SingleLineText;
+    價格1: kintone.fieldTypes.Number;
+    價格2: kintone.fieldTypes.Number;
+    分管組合名稱: kintone.fieldTypes.SingleLineText;
+    檢驗名稱: kintone.fieldTypes.SingleLineText;
   }
 
   type Fc<T extends string> = {
