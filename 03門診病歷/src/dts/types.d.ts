@@ -126,12 +126,12 @@ declare namespace KintoneTypes {
 
   type ExamField = {
     檢驗備註: kintone.fieldTypes.SingleLineText;
-    檢驗單號: kintone.fieldTypes.SingleLineText;
+    檢驗單號: kintone.fieldTypes.SingleLineText & { lookup?: true | 'CLEAR' };
     成數_檢驗: kintone.fieldTypes.Number;
     檢驗日期: kintone.fieldTypes.Date;
     檢驗單價: kintone.fieldTypes.Number;
     分管組合: kintone.fieldTypes.SingleLineText;
-    檢驗代碼: kintone.fieldTypes.SingleLineText;
+    檢驗代碼: kintone.fieldTypes.SingleLineText & { lookup?: true | 'CLEAR' };
     檢驗單狀態: kintone.fieldTypes.DropDown;
     檢驗名稱: kintone.fieldTypes.SingleLineText;
     檢驗費小計: kintone.fieldTypes.Calc;
@@ -154,6 +154,23 @@ declare namespace KintoneTypes {
     價格2: kintone.fieldTypes.Number;
     分管組合名稱: kintone.fieldTypes.SingleLineText;
     檢驗名稱: kintone.fieldTypes.SingleLineText;
+  }
+
+  type ECI = Base & {
+    檢驗單號: kintone.fieldTypes.SingleLineText;
+    病歷號碼: kintone.fieldTypes.SingleLineText;
+    檢驗日期: kintone.fieldTypes.Date;
+    生日: kintone.fieldTypes.Date;
+    檢驗代碼: kintone.fieldTypes.SingleLineText;
+    姓名: kintone.fieldTypes.SingleLineText;
+    退單記錄: kintone.fieldTypes.SingleLineText;
+    性別: kintone.fieldTypes.SingleLineText;
+    條碼號: kintone.fieldTypes.SingleLineText;
+    關聯病歷記錄: kintone.fieldTypes.SingleLineText;
+    身份證號: kintone.fieldTypes.SingleLineText;
+    檢驗名稱: kintone.fieldTypes.SingleLineText;
+    主治醫師: kintone.fieldTypes.UserSelect;
+    狀態: { type: 'STATUS', value: string };
   }
 
   type Fc<T extends string> = {

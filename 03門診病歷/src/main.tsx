@@ -1,15 +1,21 @@
 import ReactDOM from 'react-dom/client'
-import { getSpaceElement, isMobile } from 'kchelper'
+import { getSpaceElement, hideField, isMobile } from 'kchelper'
 import hideFields from './handlers/hideFields'
 import config from './config'
 import disabledField from './handlers/disabledField'
 import './main.css'
 import ExamDiv from './components/ExamDiv'
+import examDataCheck from './handlers/examDataCheck'
 
 kintone.events.on(config.events.all.show, event => {
   const el = getSpaceElement(config.sp.exam, isMobile(event))
   ReactDOM.createRoot(el!).render(<ExamDiv event={event}/>)
 })
+kintone.events.on(config.events.all.show, event => {
+  hideField(config.fc.opd.檢驗, isMobile(event))
+  return event
+})
+kintone.events.on(config.events.all.submit, examDataCheck)
 
 // kintone.events.on(['app.record.detail.show', 'mobile.record.detail. show'], () => {
 //   const el: HTMLElement | null = document.querySelector(config.el.spacer)

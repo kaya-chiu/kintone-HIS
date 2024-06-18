@@ -13,8 +13,9 @@ interface Config {
     show: string[]
   },
   fc: {
-    opd: KintoneTypes.Fc<keyof KintoneTypes.Opd>
-    exam: KintoneTypes.Fc<keyof KintoneTypes.ExamField>
+    opd: KintoneTypes.Fc<keyof KintoneTypes.Opd>,
+    exam: KintoneTypes.Fc<keyof KintoneTypes.ExamField>,
+    eci: KintoneTypes.Fc<keyof KintoneTypes.ECI>
   },
   sp: {
     medicineSearch: string,
@@ -171,6 +172,29 @@ const config: Config = {
       檢驗單狀態: '檢驗單狀態',
       檢驗名稱: '檢驗名稱',
       檢驗費小計: '檢驗費小計'
+    },
+    eci: {
+      $id: '$id',
+      $revision: '$revision',
+      更新人: '更新人',
+      建立人: '建立人',
+      記錄號碼: '記錄號碼',
+      更新時間: '更新時間',
+      建立時間: '建立時間',
+      姓名: '姓名',
+      病歷號碼: '病歷號碼',
+      生日: '生日',
+      性別: '性別',
+      身份證號: '身份證號',
+      主治醫師: '主治醫師',
+      檢驗日期: '檢驗日期',
+      檢驗代碼: '檢驗代碼',
+      檢驗名稱: '檢驗名稱',
+      檢驗單號: '檢驗單號',
+      退單記錄: '退單記錄',
+      條碼號: '條碼號',
+      關聯病歷記錄: '關聯病歷記錄',
+      狀態: '狀態'
     }
   },
   sp: {
