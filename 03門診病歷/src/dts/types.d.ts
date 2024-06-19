@@ -62,6 +62,7 @@ declare namespace KintoneTypes {
           數量_處置: kintone.fieldTypes.Number;
           處置單價: kintone.fieldTypes.Number;
           處置費小計: kintone.fieldTypes.Calc;
+          績效: kintone.fieldTypes.UserSelect;
         };
       }>;
     };
@@ -153,7 +154,7 @@ declare namespace KintoneTypes {
   }
 
   type MediField = {
-    藥品代碼: kintone.fieldTypes.SingleLineText  & { lookup?: true | 'CLEAR' };
+    藥品代碼: kintone.fieldTypes.SingleLineText & { lookup?: true | 'CLEAR' };
     藥品單價: kintone.fieldTypes.Number;
     成數_藥品: kintone.fieldTypes.Number;
     劑量: kintone.fieldTypes.Number;
@@ -179,6 +180,31 @@ declare namespace KintoneTypes {
     價格1: kintone.fieldTypes.Number;
     價格2: kintone.fieldTypes.Number;
     藥品代碼: kintone.fieldTypes.SingleLineText;
+  }
+
+  type TreaField = {
+    處置備註: kintone.fieldTypes.SingleLineText;
+    成數_處置: kintone.fieldTypes.Number;
+    處置名稱: kintone.fieldTypes.SingleLineText;
+    處置代碼: kintone.fieldTypes.SingleLineText & { lookup?: true | 'CLEAR' };
+    數量_處置: kintone.fieldTypes.Number;
+    處置單價: kintone.fieldTypes.Number;
+    處置費小計: kintone.fieldTypes.Calc;
+    績效: kintone.fieldTypes.UserSelect;
+  }
+
+  type TreaTable = {
+    id: string;
+    value: TreaField
+  }
+
+  type TDB = Base & {
+    啟用狀態: kintone.fieldTypes.RadioButton;
+    處置名稱: kintone.fieldTypes.SingleLineText;
+    處置代碼: kintone.fieldTypes.SingleLineText;
+    價格3: kintone.fieldTypes.Number;
+    價格1: kintone.fieldTypes.Number;
+    價格2: kintone.fieldTypes.Number;
   }
 
   type Fc<T extends string> = {

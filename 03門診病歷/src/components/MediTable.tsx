@@ -69,7 +69,7 @@ const MediTable: React.FC<Props> = ({ table, deleteRow, handleTableInput }) => {
       // [頻率]
       frequency: (
         <Select
-          defaultValue={cell.頻率.value}
+          value={cell.頻率.value}
           style={{ width: 100 }}
           onChange={inputValue => {
             const rowIndex = index
@@ -91,7 +91,7 @@ const MediTable: React.FC<Props> = ({ table, deleteRow, handleTableInput }) => {
 
       // [劑量]
       dose: (<InputNumber
-        defaultValue={cell.劑量.value}
+        value={cell.劑量.value}
         style={{ width: 50 }} controls={false}
         onChange={n => {
           const rowIndex = index
@@ -111,7 +111,7 @@ const MediTable: React.FC<Props> = ({ table, deleteRow, handleTableInput }) => {
 
       // [天數]
       day: (<InputNumber
-        defaultValue={cell.天數.value}
+        value={cell.天數.value}
         style={{ width: 50 }} controls={false}
         onChange={n => {
           const rowIndex = index
@@ -147,7 +147,7 @@ const MediTable: React.FC<Props> = ({ table, deleteRow, handleTableInput }) => {
 
       // [用藥備註]
       memo: (<Input 
-        defaultValue={cell.用藥備註.value}
+        value={cell.用藥備註.value}
         onChange={e => handleTableInput({ rowIndex: index, colName: '用藥備註', inputValue: e.target.value })}
       />),
 
@@ -156,7 +156,7 @@ const MediTable: React.FC<Props> = ({ table, deleteRow, handleTableInput }) => {
 
       // [成數]
       discount: (<InputNumber 
-        defaultValue={cell.成數_藥品.value} 
+        value={cell.成數_藥品.value} 
         min='0' max='100' style={{ width: 50 }} controls={false}
         onChange={n => {
           const inputValue = n ?? '100'

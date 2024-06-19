@@ -23,8 +23,8 @@ const search: Search = {
     token: import.meta.env.VITE_API_TOKEN_MDB
   },
   treatment: {
-    appId: '',
-    token: ''
+    appId: 60,
+    token: import.meta.env.VITE_API_TOKEN_TDB
   },
   examination: {
     appId: 57,

@@ -72,7 +72,7 @@ const MediSearch: React.FC<Props> = ({ priceCode, addToTable }) => {
   const onSearch: SearchProps['onSearch'] = async (value, _e, info) => {
     if (info?.source !== 'input') return
 
-    // @ts-expect-error: 從檢驗資料管理取得項目資料
+    // @ts-expect-error: 從藥品管理取得項目資料
     const result: KintoneTypes.MDB[] = await searchDB('medicine', searchType, value)
     
     // 查無結果時的處理

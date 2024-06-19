@@ -80,7 +80,7 @@ const ExamTable: React.FC<Props> = ({ cn, table, deleteRow, handleTableInput }) 
       
       // [檢驗日期]
       date: (<DatePicker 
-        defaultValue={dayjs(cell.檢驗日期.value)}
+        value={dayjs(cell.檢驗日期.value)}
         onChange={date => onDateSelect(date, index)}
         allowClear={false} suffixIcon={null}
         disabled={!canEdit.includes(cell.檢驗單狀態.value)}
@@ -89,7 +89,7 @@ const ExamTable: React.FC<Props> = ({ cn, table, deleteRow, handleTableInput }) 
       // [檢驗單狀態]
       status: (
         <Select 
-          defaultValue={cell.檢驗單狀態.value}
+          value={cell.檢驗單狀態.value}
           onChange={inputValue => {
             const isRefund = inputValue === '退單'
             let subtotal = Math.abs(Number(cell.檢驗單價.value) * Number(cell.成數_檢驗.value) / 100)
@@ -152,7 +152,7 @@ const ExamTable: React.FC<Props> = ({ cn, table, deleteRow, handleTableInput }) 
 
       // [檢驗備註]
       memo: (<Input 
-        defaultValue={cell.檢驗備註.value}
+        value={cell.檢驗備註.value}
         onChange={e => handleTableInput({ rowIndex: index, colName: '檢驗備註', inputValue: e.target.value })}
         disabled={!canEdit.includes(cell.檢驗單狀態.value)}
       />),
@@ -162,7 +162,7 @@ const ExamTable: React.FC<Props> = ({ cn, table, deleteRow, handleTableInput }) 
 
       // [成數]
       discount: (<InputNumber 
-        defaultValue={cell.成數_檢驗.value} 
+        value={cell.成數_檢驗.value} 
         min='0' max='100' style={{ width: 50 }} controls={false}
         onChange={n => {
           const num = n ?? '100'

@@ -7,19 +7,22 @@ import './main.css'
 import ExamDiv from './components/ExamDiv'
 import examDataCheck from './handlers/examDataCheck'
 import MediDiv from './components/MediDiv'
+import TreaDiv from './components/TreaDiv'
 
 // 客製化表格
 kintone.events.on(config.events.all.show, event => {
   const mobile = isMobile(event)
   const examSpaceEl = getSpaceElement(config.sp.exam, mobile)
   const mediSpaceEl = getSpaceElement(config.sp.medi, mobile)
+  const treaSpaceEl = getSpaceElement(config.sp.trea, mobile)
 
   ReactDOM.createRoot(examSpaceEl!).render(<ExamDiv event={event}/>)
   ReactDOM.createRoot(mediSpaceEl!).render(<MediDiv event={event}/>)
+  ReactDOM.createRoot(treaSpaceEl!).render(<TreaDiv event={event}/>)
 })
 // 編輯畫面隱藏原生表格
 kintone.events.on(config.events.all.show, event => {
-  hideFields(['用藥', '檢驗'], event)
+  hideFields(['用藥', '處置', '檢驗'], event)
   return event
 })
 // 檢查檢驗表格資料
