@@ -13,25 +13,14 @@ declare namespace KintoneTypes {
   }
 
   type Opd = Base & {
-    預設劑量: kintone.fieldTypes.Number;
-    檢驗價格3: kintone.fieldTypes.Number;
     姓名: kintone.fieldTypes.SingleLineText;
-    檢驗價格2: kintone.fieldTypes.Number;
-    檢驗價格1: kintone.fieldTypes.Number;
     身份別: kintone.fieldTypes.SingleLineText;
     實收: kintone.fieldTypes.Number;
-    藥品名稱搜尋: kintone.fieldTypes.SingleLineText;
-    藥品價格3: kintone.fieldTypes.Number;
     病歷號碼: kintone.fieldTypes.SingleLineText;
     批價代碼: kintone.fieldTypes.Number;
-    藥品價格1: kintone.fieldTypes.Number;
-    藥品價格2: kintone.fieldTypes.Number;
     生日: kintone.fieldTypes.Date;
     批價狀態: kintone.fieldTypes.DropDown;
-    預設頻率: kintone.fieldTypes.SingleLineText;
-    藥品代碼搜尋: kintone.fieldTypes.SingleLineText;
     Objective: kintone.fieldTypes.MultiLineText;
-    檢驗名稱搜尋: kintone.fieldTypes.SingleLineText;
     批價幣別: kintone.fieldTypes.SingleLineText;
     就診日期: kintone.fieldTypes.Date;
     掛號費_台幣: kintone.fieldTypes.Number;
@@ -39,29 +28,19 @@ declare namespace KintoneTypes {
     看診序號: kintone.fieldTypes.SingleLineText;
     掛號流水號: kintone.fieldTypes.SingleLineText;
     性別: kintone.fieldTypes.SingleLineText;
-    處置名稱搜尋: kintone.fieldTypes.SingleLineText;
-    檢驗代碼搜尋: kintone.fieldTypes.SingleLineText;
     門診時段: kintone.fieldTypes.SingleLineText;
     門診別: kintone.fieldTypes.DropDown;
     Subjective: kintone.fieldTypes.MultiLineText;
     預欠收: kintone.fieldTypes.Number;
-    處置價格1: kintone.fieldTypes.Number;
     分區: kintone.fieldTypes.SingleLineText;
-    處置價格3: kintone.fieldTypes.Number;
     就診類別: kintone.fieldTypes.SingleLineText;
-    處置價格2: kintone.fieldTypes.Number;
-    處置代碼搜尋: kintone.fieldTypes.SingleLineText;
     療程別: kintone.fieldTypes.SingleLineText;
     病歷記錄流水號: kintone.fieldTypes.SingleLineText;
     身份證號: kintone.fieldTypes.SingleLineText;
     掛號費_美金: kintone.fieldTypes.Number;
-    預設天數: kintone.fieldTypes.Number;
     應收: kintone.fieldTypes.Calc;
     掛號費: kintone.fieldTypes.Calc;
-    對應藥品價格: kintone.fieldTypes.Calc;
     處置費: kintone.fieldTypes.Calc;
-    對應檢驗價格: kintone.fieldTypes.Calc;
-    對應處置價格: kintone.fieldTypes.Calc;
     檢驗費: kintone.fieldTypes.Calc;
     結餘: kintone.fieldTypes.Calc;
     就診時年齡: kintone.fieldTypes.Calc;
@@ -99,7 +78,7 @@ declare namespace KintoneTypes {
           藥品名稱: kintone.fieldTypes.SingleLineText;
           總量: kintone.fieldTypes.Number;
           用藥備註: kintone.fieldTypes.SingleLineText;
-          頻率: kintone.fieldTypes.SingleLineText;
+          頻率: kintone.fieldTypes.DropDown;
           藥費小計: kintone.fieldTypes.Calc;
         };
       }>;
@@ -139,7 +118,7 @@ declare namespace KintoneTypes {
 
   type ExamTable = {
     id: string;
-    value: ExamField
+    value: ExamField;
   }
 
   type EDB = Base & {
@@ -173,9 +152,40 @@ declare namespace KintoneTypes {
     狀態: { type: 'STATUS', value: string };
   }
 
+  type MediField = {
+    藥品代碼: kintone.fieldTypes.SingleLineText  & { lookup?: true | 'CLEAR' };
+    藥品單價: kintone.fieldTypes.Number;
+    成數_藥品: kintone.fieldTypes.Number;
+    劑量: kintone.fieldTypes.Number;
+    天數: kintone.fieldTypes.Number;
+    藥品名稱: kintone.fieldTypes.SingleLineText;
+    總量: kintone.fieldTypes.Number;
+    用藥備註: kintone.fieldTypes.SingleLineText;
+    頻率: kintone.fieldTypes.DropDown;
+    藥費小計: kintone.fieldTypes.Calc;
+  }
+
+  type MediTable = {
+    id: string;
+    value: MediField;
+  }
+
+  type MDB = Base & {
+    啟用狀態: kintone.fieldTypes.RadioButton;
+    藥品名稱: kintone.fieldTypes.SingleLineText;
+    預設劑量: kintone.fieldTypes.Number;
+    價格3: kintone.fieldTypes.Number;
+    預設頻率: kintone.fieldTypes.DropDown;
+    價格1: kintone.fieldTypes.Number;
+    價格2: kintone.fieldTypes.Number;
+    藥品代碼: kintone.fieldTypes.SingleLineText;
+  }
+
   type Fc<T extends string> = {
     [key in T]: `${key}`
   }
+
+  type Freq = 'QD' | 'BID' | 'TID' | 'QID' | 'QOD' | 'Q3D' | 'QW' | 'BIW' | 'HS' | 'STAT' | 'PRN'
 
   namespace E {
     interface Opd {

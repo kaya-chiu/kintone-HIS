@@ -31,22 +31,23 @@ interface DataType {
   price: number | string,
   discount: number | string | ReactElement,
   subtotal: number | string,
-  group: string
+  group: string,
+  action: ReactElement
 }
 
 // * 表格設定
 const canEdit = ['預開', '急開', '退單']
 const columns: TableColumnsType<DataType> = [
   { title: '檢驗代碼', dataIndex: 'code' },
-  { title: '檢驗名稱', dataIndex: 'name', },
-  { title: '檢驗日期', dataIndex: 'date', },
-  { title: '檢驗單狀態', dataIndex: 'status', },
-  { title: '檢驗單號', dataIndex: 'serialNum', },
-  { title: '檢驗備註', dataIndex: 'memo', },
-  { title: '檢驗單價', dataIndex: 'price', },
-  { title: '成數', dataIndex: 'discount', },
-  { title: '檢驗費小計', dataIndex: 'subtotal', },
-  { title: '', dataIndex: 'action',  }
+  { title: '檢驗名稱', dataIndex: 'name' },
+  { title: '檢驗日期', dataIndex: 'date' },
+  { title: '檢驗單狀態', dataIndex: 'status' },
+  { title: '檢驗單號', dataIndex: 'serialNum' },
+  { title: '檢驗備註', dataIndex: 'memo' },
+  { title: '檢驗單價', dataIndex: 'price' },
+  { title: '成數', dataIndex: 'discount' },
+  { title: '檢驗費小計', dataIndex: 'subtotal' },
+  { title: '', dataIndex: 'action' }
 ]
 const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra)
@@ -211,7 +212,6 @@ const ExamTable: React.FC<Props> = ({ cn, table, deleteRow, handleTableInput }) 
         handleTableInput={handleTableInput}
       />
     </ConfigProvider>
-    
   )
 }
 

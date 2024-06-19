@@ -17,7 +17,7 @@ interface Props {
 
 // *** MAIN COMPONENT ***
 const ExamModal: React.FC<Props> = ({ open, setOpen, loading, data, index, handleTableInput }) => {
-  if (!index) return
+  if (!index && index !== 0) return
 
   // * RETURN
   return (

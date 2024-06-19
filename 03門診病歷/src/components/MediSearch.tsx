@@ -1,30 +1,32 @@
 import React, { useState } from 'react'
-import { Input, Select, Popover } from 'antd'
+import { Input, Select, Popover, Flex, InputNumber } from 'antd'
 import type { SearchProps } from 'antd/es/input/Search'
 import { searchDB } from '../api/searchDB'
 import { KintoneTypes } from '../dts/types'
-import { getDateString } from 'kchelper'
+import drugCount from '../handlers/drugCount'
 
 const { Option } = Select
 const { Search } = Input
 
 interface Props {
   priceCode: string;
-  addToTable: (newRow: KintoneTypes.ExamTable) => void;
+  addToTable: (newRow: KintoneTypes.MediTable) => void;
 }
 
+
 // *** MAIN COMPONENT ***
-const ExamSearch: React.FC<Props> = ({ priceCode, addToTable }) => {
-  const [searchType, setSearchType] = useState<string>('檢驗代碼')
+const MediSearch: React.FC<Props> = ({ priceCode, addToTable }) => {
+  const [searchType, setSearchType] = useState<string>('藥品代碼')
   const [open, setOpen] = useState<boolean>(false)
   const [content, setContent] = useState([<p>查無資料</p>])
   const [value, setValue] = useState('')
+  const [day, setDay] = useState<number>(1)
 
   const handleOpenChange = (newOpen: boolean) => setOpen(newOpen)
   const handleSelectChange = (value: string) => setSearchType(value)
 
   // * 產生新的一列
-  const addNewRow = (item: KintoneTypes.EDB) => {
+  const addNewRow = (item: KintoneTypes.MDB) => {
     // 根據批價代碼決定單價
     let price: number | string = 0
     switch (priceCode) {
@@ -42,19 +44,23 @@ const ExamSearch: React.FC<Props> = ({ priceCode, addToTable }) => {
       break
     }
 
+    // 計算藥物總量 & 費用小計
+    const count = drugCount(Number(item.預設劑量.value), item.預設頻率.value as KintoneTypes.Freq, day)
+    const subtotal = (Number(price) * count).toString()
+
     // @ts-expect-error: 產生新一列的內容
-    const newRow: KintoneTypes.ExamTable = {
+    const newRow: KintoneTypes.MediTable = {
       value: {
-        檢驗單價: { type: 'NUMBER', value: price },
-        分管組合: { type: 'SINGLE_LINE_TEXT', value: item.分管組合名稱.value },
-        檢驗代碼: { type: 'SINGLE_LINE_TEXT', value: item.檢驗代碼.value, lookup: true },
-        檢驗名稱: { type: 'SINGLE_LINE_TEXT', value: item.檢驗名稱.value },
-        檢驗備註: { type: 'SINGLE_LINE_TEXT', value: '' },
-        檢驗單號: { type: 'SINGLE_LINE_TEXT', value: '' },
-        成數_檢驗: { type: 'NUMBER', value: '100' },
-        檢驗日期: { type: 'DATE', value: getDateString('yyyy-mm-dd') },
-        檢驗單狀態: { type: 'DROP_DOWN', value: '預開' },
-        檢驗費小計: { type: 'CALC', value: price }
+        藥品代碼: { type: 'SINGLE_LINE_TEXT', value: item.藥品代碼.value, lookup: true },
+        藥品單價: { type: 'NUMBER', value: price },
+        成數_藥品: { type: 'NUMBER', value: '100' },
+        劑量: { type: 'NUMBER', value: item.預設劑量.value },
+        天數: { type: 'NUMBER', value: day.toString() },
+        藥品名稱: { type: 'SINGLE_LINE_TEXT', value: item.藥品名稱.value },
+        總量: { type: 'NUMBER', value: count.toString() },
+        用藥備註: { type: 'SINGLE_LINE_TEXT', value: '' },
+        頻率: { type: 'DROP_DOWN', value: item.預設頻率.value },
+        藥費小計: { type: 'CALC', value: subtotal }
       }
     }
 
@@ -67,7 +73,7 @@ const ExamSearch: React.FC<Props> = ({ priceCode, addToTable }) => {
     if (info?.source !== 'input') return
 
     // @ts-expect-error: 從檢驗資料管理取得項目資料
-    const result: KintoneTypes.EDB[] = await searchDB('examination', searchType, value)
+    const result: KintoneTypes.MDB[] = await searchDB('medicine', searchType, value)
     
     // 查無結果時的處理
     if (result.length === 0) {
@@ -90,7 +96,7 @@ const ExamSearch: React.FC<Props> = ({ priceCode, addToTable }) => {
             setOpen(false)
           }}
         >
-          <p>【{r.檢驗代碼.value}】 {r.檢驗名稱.value}</p>
+          <p>【{r.藥品代碼.value}】 {r.藥品名稱.value}</p>
         </a>
       ))
       setContent(list)
@@ -103,9 +109,9 @@ const ExamSearch: React.FC<Props> = ({ priceCode, addToTable }) => {
   
   // * 搜尋選項
   const selectBefore = (
-    <Select defaultValue="檢驗代碼" onChange={handleSelectChange}>
-      <Option value="檢驗代碼">檢驗代碼</Option>
-      <Option value="檢驗名稱">檢驗名稱</Option>
+    <Select defaultValue="藥品代碼" onChange={handleSelectChange}>
+      <Option value="藥品代碼">藥品代碼</Option>
+      <Option value="藥品名稱">藥品名稱</Option>
     </Select>
   )
 
@@ -121,16 +127,24 @@ const ExamSearch: React.FC<Props> = ({ priceCode, addToTable }) => {
       >
         <div style={{ maxWidth: 500 }} />
       </Popover>
-      <Search 
-        addonBefore={selectBefore}
-        placeholder={`請輸入${searchType}`}
-        allowClear onSearch={onSearch}
-        value={value}
-        onChange={e => setValue(e.target.value)}
-        style={{ maxWidth: 500, margin: '10px 0' }} 
-      />
+      <Flex gap="small" align="center">
+        <Search 
+          addonBefore={selectBefore}
+          placeholder={`請輸入${searchType}`}
+          allowClear onSearch={onSearch}
+          value={value}
+          onChange={e => setValue(e.target.value)}
+          style={{ maxWidth: 500, margin: '10px 0' }} 
+        />
+        <InputNumber 
+          addonBefore="用藥天數"
+          min={1} style={{ width: 150 }} controls={false}
+          value={day}
+          onChange={n => setDay(n || 1)}
+        />
+      </Flex>
     </>
   )
 }
 
-export default ExamSearch
+export default MediSearch

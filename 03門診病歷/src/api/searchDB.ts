@@ -19,8 +19,8 @@ type Search = {
 
 const search: Search = {
   medicine: {
-    appId: '',
-    token: ''
+    appId: 59,
+    token: import.meta.env.VITE_API_TOKEN_MDB
   },
   treatment: {
     appId: '',

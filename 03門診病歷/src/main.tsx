@@ -1,28 +1,29 @@
 import ReactDOM from 'react-dom/client'
-import { getSpaceElement, hideField, isMobile } from 'kchelper'
+import { getSpaceElement, isMobile } from 'kchelper'
 import hideFields from './handlers/hideFields'
 import config from './config'
 import disabledField from './handlers/disabledField'
 import './main.css'
 import ExamDiv from './components/ExamDiv'
 import examDataCheck from './handlers/examDataCheck'
+import MediDiv from './components/MediDiv'
 
+// 客製化表格
 kintone.events.on(config.events.all.show, event => {
-  const el = getSpaceElement(config.sp.exam, isMobile(event))
-  ReactDOM.createRoot(el!).render(<ExamDiv event={event}/>)
+  const mobile = isMobile(event)
+  const examSpaceEl = getSpaceElement(config.sp.exam, mobile)
+  const mediSpaceEl = getSpaceElement(config.sp.medi, mobile)
+
+  ReactDOM.createRoot(examSpaceEl!).render(<ExamDiv event={event}/>)
+  ReactDOM.createRoot(mediSpaceEl!).render(<MediDiv event={event}/>)
 })
+// 編輯畫面隱藏原生表格
 kintone.events.on(config.events.all.show, event => {
-  hideField(config.fc.opd.檢驗, isMobile(event))
+  hideFields(['用藥', '檢驗'], event)
   return event
 })
+// 檢查檢驗表格資料
 kintone.events.on(config.events.all.submit, examDataCheck)
-
-// kintone.events.on(['app.record.detail.show', 'mobile.record.detail. show'], () => {
-//   const el: HTMLElement | null = document.querySelector(config.el.spacer)
-//   console.log(el)
-//   // @ts-expect-error: detail.show 畫面隱藏 spacer 元素
-//   if (el) el.style = 'min-width: 0px; min-height: 0px;'
-// })
 
 // 隱藏欄位
 kintone.events.on([
