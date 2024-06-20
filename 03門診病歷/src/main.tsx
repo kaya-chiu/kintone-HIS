@@ -9,6 +9,7 @@ import examDataCheck from './handlers/examDataCheck'
 import MediDiv from './components/MediDiv'
 import TreaDiv from './components/TreaDiv'
 import statusController from './handlers/statusController'
+import GetBalanceBtn from './components/GetBalanceBtn'
 
 // 客製化表格
 kintone.events.on(config.events.all.show, event => {
@@ -16,10 +17,12 @@ kintone.events.on(config.events.all.show, event => {
   const examSpaceEl = getSpaceElement(config.sp.exam, mobile)
   const mediSpaceEl = getSpaceElement(config.sp.medi, mobile)
   const treaSpaceEl = getSpaceElement(config.sp.trea, mobile)
+  const getbSpaceEl = getSpaceElement(config.sp.getb, mobile)
 
   ReactDOM.createRoot(examSpaceEl!).render(<ExamDiv event={event}/>)
   ReactDOM.createRoot(mediSpaceEl!).render(<MediDiv event={event}/>)
   ReactDOM.createRoot(treaSpaceEl!).render(<TreaDiv event={event}/>)
+  ReactDOM.createRoot(getbSpaceEl!).render(<GetBalanceBtn event={event}/>)
 })
 // 編輯畫面隱藏原生表格
 kintone.events.on(config.events.all.show, event => {
@@ -50,7 +53,7 @@ kintone.events.on([
 // 禁止編輯欄位
 kintone.events.on(config.events.all.show, event => {
   disabledField([
-    '病歷號碼', '批價狀態', '已領藥', '掛號流水號'
+    '病歷號碼', '批價狀態', '已領藥', '掛號流水號', '預欠收'
   ], event)
   return event
 })
