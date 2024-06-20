@@ -18,6 +18,18 @@ interface RowInput {
 const deleteByIndex = (array: KintoneTypes.ExamTable[], index: number) => {
   const newArray = [...array]
   newArray.splice(index, 1)
+
+  newArray.forEach(row => {
+    // 解決刪除欄時檢驗代碼會沒有執行取得的bug
+    row.value.檢驗代碼.lookup = true
+    // 解決刪除有帶入檢驗單號之列時，下一行檢驗單號空值會帶入錯誤的bug
+    if (row.value.檢驗單號.value.length === 0) {
+      row.value.檢驗單號.lookup = 'CLEAR'
+    } else {
+      row.value.檢驗單號.lookup = true
+    }
+  })
+  
   return newArray
 }
 const inputByIndex = ({ array, rowIndex, colName, inputValue } : RowInput) => {

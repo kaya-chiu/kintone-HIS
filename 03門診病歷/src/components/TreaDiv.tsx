@@ -23,6 +23,12 @@ interface RowInput {
 const deleteByIndex = (array: KintoneTypes.TreaTable[], index: number) => {
   const newArray = [...array]
   newArray.splice(index, 1)
+
+  newArray.forEach(row => {
+    // 解決刪除欄時處置代碼會沒有執行取得的bug
+    row.value.處置代碼.lookup = true
+  })
+
   return newArray
 }
 const inputByIndex = ({ array, rowIndex, colName, inputValue } : RowInput) => {
