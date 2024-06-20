@@ -49,7 +49,7 @@ const MediDiv: React.FC<Props> = ({ event }) => {
     // 更新表格內容＆畫面
     table.push(newRow)
     record.用藥.value = table
-    setRecord(record)
+    setRecord(record, mobile)
     setTable(table)
   }
   // * 表格刪除列
@@ -57,7 +57,7 @@ const MediDiv: React.FC<Props> = ({ event }) => {
     const record: KintoneTypes.Opd = getRecord(mobile)
     const updatedTable = deleteByIndex(table, index)
     record.用藥.value = updatedTable
-    setRecord(record)
+    setRecord(record, mobile)
     setTable(updatedTable)
   }
   // * 表格編輯列
@@ -65,7 +65,7 @@ const MediDiv: React.FC<Props> = ({ event }) => {
     const record: KintoneTypes.Opd = getRecord(mobile)
     const updatedTable = inputByIndex({array: table, rowIndex, colName, inputValue})
     record.用藥.value = updatedTable
-    setRecord(record)
+    setRecord(record, mobile)
     setTable(updatedTable)
   }
 
@@ -80,7 +80,7 @@ const MediDiv: React.FC<Props> = ({ event }) => {
       table.shift()
       // 更新表格內容 & 更新畫面
       record.用藥.value = table
-      setRecord(record)
+      setRecord(record, mobile)
       setTable(table)
     }
   }, [])

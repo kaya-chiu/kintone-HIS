@@ -8,6 +8,7 @@ import ExamDiv from './components/ExamDiv'
 import examDataCheck from './handlers/examDataCheck'
 import MediDiv from './components/MediDiv'
 import TreaDiv from './components/TreaDiv'
+import statusController from './handlers/statusController'
 
 // 客製化表格
 kintone.events.on(config.events.all.show, event => {
@@ -28,6 +29,9 @@ kintone.events.on(config.events.all.show, event => {
 // 檢查檢驗表格資料
 kintone.events.on(config.events.all.submit, examDataCheck)
 
+// 狀態控制
+kintone.events.on(config.events.all.submit, statusController)
+
 // 隱藏欄位
 kintone.events.on([
   'app.record.detail.show',
@@ -46,7 +50,7 @@ kintone.events.on([
 // 禁止編輯欄位
 kintone.events.on(config.events.all.show, event => {
   disabledField([
-    '病歷號碼',
+    '病歷號碼', '批價狀態', '已領藥', '掛號流水號'
   ], event)
   return event
 })

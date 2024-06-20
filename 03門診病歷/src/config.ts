@@ -20,10 +20,8 @@ interface Config {
   sp: {
     exam: string,
     medi: string,
-    trea: string
-  },
-  el: {
-    spacer: string
+    trea: string,
+    getb: string
   }
 }
 
@@ -178,10 +176,8 @@ const config: Config = {
   sp: {
     exam: 'examination',
     medi: 'medicine',
-    trea: 'treatment'
-  },
-  el: {
-    spacer: '.control-spacer-field-gaia'
+    trea: 'treatment',
+    getb: 'get-balance'
   }
 }
 
