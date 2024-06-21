@@ -21,6 +21,7 @@ declare namespace kintone.types {
     療程別: kintone.fieldTypes.DropDown;
     身份證號: kintone.fieldTypes.SingleLineText;
     IVF往例: kintone.fieldTypes.MultiLineText;
+
     單窗: kintone.fieldTypes.UserSelect;
     主治醫師: kintone.fieldTypes.UserSelect;
   }

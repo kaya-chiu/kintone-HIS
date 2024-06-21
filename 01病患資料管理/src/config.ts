@@ -1,5 +1,6 @@
 import { KintoneTypes } from './dts/types'
 
+type Patient = KintoneTypes.Patient & KintoneTypes.Related
 interface Editable {
   show: string[],
   submit: string[],
@@ -13,11 +14,7 @@ interface Config {
     show: string[]
   },
   fc: {
-    patient: KintoneTypes.Fc<keyof KintoneTypes.Patient>
-  },
-  el: {
-    examinationEl: '.field-5739765',
-    accountGroupEl: '.field-5739681'
+    patient: KintoneTypes.Fc<keyof Patient>
   }
 }
 
@@ -115,12 +112,11 @@ const config: Config = {
       身份證號: '身份證號',
       IVF往例: 'IVF往例',
       單窗: '單窗',
-      主治醫師: '主治醫師'
+      主治醫師: '主治醫師',
+      檢驗報告: '檢驗報告',
+      門診病歷: '門診病歷',
+      批價記錄: '批價記錄'
     }
-  },
-  el: {
-    examinationEl: '.field-5739765',
-    accountGroupEl: '.field-5739681'
   }
 }
 

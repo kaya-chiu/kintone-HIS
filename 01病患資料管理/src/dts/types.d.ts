@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import type { KintoneRecordField } from '@kintone/rest-api-client'
 
 declare namespace KintoneTypes {
@@ -14,29 +15,35 @@ declare namespace KintoneTypes {
   // 【HIS】01 病患資料管理
   // https://kaya.cybozu.com/k/51/
   type Patient = Base & {
-    Email: KintoneRecordField.SingleLineText;
-    懷孕史: KintoneRecordField.SingleLineText;
-    藥物過敏史: KintoneRecordField.SingleLineText;
-    姓名: KintoneRecordField.SingleLineText;
-    身份別: KintoneRecordField.SingleLineText;
-    其他病史: KintoneRecordField.MultiLineText;
-    性別: KintoneRecordField.RadioButton;
-    身高: KintoneRecordField.Number;
-    聯絡地址: KintoneRecordField.SingleLineText;
-    年齡: KintoneRecordField.Number;
-    病歷號碼: KintoneRecordField.SingleLineText;
-    預欠收_台幣: KintoneRecordField.Number;
-    生日: KintoneRecordField.Date;
-    電話號碼: KintoneRecordField.SingleLineText;
-    預欠收_美金: KintoneRecordField.Number;
-    體重: KintoneRecordField.Number;
-    分區: KintoneRecordField.DropDown;
-    特別記載: KintoneRecordField.MultiLineText;
-    療程別: KintoneRecordField.DropDown;
-    身份證號: KintoneRecordField.SingleLineText;
-    IVF往例: KintoneRecordField.MultiLineText;
-    單窗: KintoneRecordField.UserSelect;
-    主治醫師: KintoneRecordField.UserSelect;
+    Email: kintone.fieldTypes.SingleLineText;
+    懷孕史: kintone.fieldTypes.SingleLineText;
+    藥物過敏史: kintone.fieldTypes.SingleLineText;
+    姓名: kintone.fieldTypes.SingleLineText;
+    身份別: kintone.fieldTypes.SingleLineText;
+    其他病史: kintone.fieldTypes.MultiLineText;
+    性別: kintone.fieldTypes.RadioButton;
+    身高: kintone.fieldTypes.Number;
+    聯絡地址: kintone.fieldTypes.SingleLineText;
+    年齡: kintone.fieldTypes.Number;
+    病歷號碼: kintone.fieldTypes.SingleLineText;
+    預欠收_台幣: kintone.fieldTypes.Number;
+    生日: kintone.fieldTypes.Date;
+    電話號碼: kintone.fieldTypes.SingleLineText;
+    預欠收_美金: kintone.fieldTypes.Number;
+    體重: kintone.fieldTypes.Number;
+    分區: kintone.fieldTypes.DropDown;
+    特別記載: kintone.fieldTypes.MultiLineText;
+    療程別: kintone.fieldTypes.DropDown;
+    身份證號: kintone.fieldTypes.SingleLineText;
+    IVF往例: kintone.fieldTypes.MultiLineText;
+    單窗: kintone.fieldTypes.UserSelect;
+    主治醫師: kintone.fieldTypes.UserSelect;
+  }
+
+  type Related = {
+    檢驗報告?: undefined;
+    門診病歷?: undefined;
+    批價記錄?: undefined;
   }
 
   type Fc<T extends string> = {

@@ -1,11 +1,12 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client'
-import { KintoneTypes } from '../dts/types'
 
 const PATIENT_APP_ID = 51
-const req = new KintoneRestAPIClient()
+const req = new KintoneRestAPIClient({
+  auth: { apiToken: import.meta.env.VITE_API_TOKEN }
+})
 
 export const getLastPatient = async (cn: string) => {
-  const res = await req.record.getRecords<KintoneTypes.Patient>({
+  const res = await req.record.getRecords({
     app: PATIENT_APP_ID,
     query: `order by ${cn} desc limit 1`
   })
