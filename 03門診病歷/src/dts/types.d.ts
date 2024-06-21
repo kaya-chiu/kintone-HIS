@@ -45,6 +45,10 @@ declare namespace KintoneTypes {
     結餘: kintone.fieldTypes.Calc;
     就診時年齡: kintone.fieldTypes.Calc;
     藥費: kintone.fieldTypes.Calc;
+    狀態: {
+      type: 'STATUS',
+      value: string | null | undefined
+    }
 
     關聯者: kintone.fieldTypes.UserSelect;
     看診醫師: kintone.fieldTypes.UserSelect;

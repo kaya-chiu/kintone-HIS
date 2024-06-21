@@ -10,7 +10,10 @@ interface Config {
     create: Editable,
     edit: Editable,
     all: Editable,
-    show: string[]
+    show: string[],
+    process: {
+      proceed: string[]
+    }
   },
   fc: {
     opd: KintoneTypes.Fc<keyof KintoneTypes.Opd>,
@@ -86,7 +89,13 @@ const config: Config = {
       'mobile.app.detail.show',
       'app.record.index.show',
       'mobile.app.record.index.show',
-    ]
+    ],
+    process: {
+      proceed: [
+        'app.record.detail.process.proceed',
+        'mobile.app.record.detail.process.proceed'
+      ]
+    }
   },
   fc: {
     opd: {
@@ -135,7 +144,8 @@ const config: Config = {
       主治醫師: '主治醫師',
       處置: '處置',
       用藥: '用藥',
-      檢驗: '檢驗'
+      檢驗: '檢驗',
+      狀態: '狀態'
     },
     exam: {
       檢驗備註: '檢驗備註',
