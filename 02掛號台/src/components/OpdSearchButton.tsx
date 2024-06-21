@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from 'antd'
+import { Button, ConfigProvider } from 'antd'
 import { KintoneTypes } from '../dts/types'
 import { getDateString, getRecord, isMobile } from 'kchelper'
 import ScheduleModal from './ScheduleModal'
@@ -59,18 +59,24 @@ const OpdSearchButton: React.FC<Props> = ({ event }) => {
   }
 
   return (
-    <EventProvider event={event}>
-      <Button type="primary" size="large" onClick={onClick} style={style}
-        disabled={config.events.show.includes(event.type)}
-      >
+    <ConfigProvider theme={{
+      components: {
+        Button: { colorPrimary: '#3498db', colorPrimaryHover: '#1d6fa5' }
+      }
+    }}>
+      <EventProvider event={event}>
+        <Button type="primary" size="large" onClick={onClick} style={style}
+          disabled={config.events.show.includes(event.type)}
+        >
         搜尋門診
-      </Button>
-      <ScheduleModal 
-        open={open} setOpen={setOpen}
-        loading={loading} records={records}
-        startDate={startDate} endDate={endDate}
-      />
-    </EventProvider>  
+        </Button>
+        <ScheduleModal 
+          open={open} setOpen={setOpen}
+          loading={loading} records={records}
+          startDate={startDate} endDate={endDate}
+        />
+      </EventProvider>  
+    </ConfigProvider>
   )
 }
 
