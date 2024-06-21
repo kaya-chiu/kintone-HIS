@@ -193,7 +193,8 @@ const MediTable: React.FC<Props> = ({ table, deleteRow, handleTableInput }) => {
           headerColor: '#FFFFFF'
         },
         Button: {
-          colorPrimary: '#3498db'
+          colorPrimary: '#3498db',
+          colorPrimaryHover: '#1d6fa5'
         }
       }
     }}>

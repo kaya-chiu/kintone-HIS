@@ -37,7 +37,7 @@ const GetBalanceBtn: React.FC<Props> = ({ event }) => {
   return (
     <ConfigProvider theme={{
       components: {
-        Button: { colorPrimary: '#3498db' }
+        Button: { colorPrimary: '#3498db', colorPrimaryHover: '#1d6fa5' }
       }
     }}>
       <Button
