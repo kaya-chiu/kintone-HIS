@@ -150,7 +150,7 @@ declare namespace KintoneTypes {
     退單記錄: kintone.fieldTypes.SingleLineText;
     性別: kintone.fieldTypes.SingleLineText;
     條碼號: kintone.fieldTypes.SingleLineText;
-    關聯病歷記錄: kintone.fieldTypes.SingleLineText;
+    開單記錄: kintone.fieldTypes.SingleLineText;
     身份證號: kintone.fieldTypes.SingleLineText;
     檢驗名稱: kintone.fieldTypes.SingleLineText;
     主治醫師: kintone.fieldTypes.UserSelect;

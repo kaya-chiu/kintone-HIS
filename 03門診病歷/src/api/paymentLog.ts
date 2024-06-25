@@ -21,13 +21,11 @@ export const postPaymentLog = async (opdNum: string, cn: string) => {
     病歷記錄流水號: { type: 'SINGLE_LINE_TEXT', value: opdNum },
     病歷號碼: { type: 'SINGLE_LINE_TEXT', value: cn }
   }
-  console.log(record)
 
   const res = await req.record.addRecord({
     app: APP_ID,
     record
   })
-  console.log('postPaymentLog:', res)
 
   if (!res.id) throw new Error('批價記錄建立失敗')
   return res

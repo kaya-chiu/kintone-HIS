@@ -34,3 +34,17 @@ export const sucToast = (title: string, text: string) => {
     text: text || undefined
   })
 }
+
+export const confirmToast = async (title: string, text: string) => {
+  const result = await Swal.fire({
+    title: title || '確定？',
+    text: text || undefined,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: '確定',
+    cancelButtonText: '取消'
+  })
+  return result.isConfirmed
+}

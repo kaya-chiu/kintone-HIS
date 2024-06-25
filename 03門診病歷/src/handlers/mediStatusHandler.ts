@@ -2,7 +2,6 @@ import { KintoneTypes } from '../dts/types'
 import { sucToast } from '../utils/myToast'
 
 const mediStatusHandler = (event: KintoneTypes.E.Opd) => {
-  console.log(event)
   const status = event.record!.狀態.value
   const medicine = event.record!.用藥.value
   const hasCheckout = event.record!.批價狀態.value === '完成'

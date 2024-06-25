@@ -5,7 +5,7 @@ import { Table, Button, ConfigProvider, Input, DatePicker, InputNumber, Select }
 import { CloseOutlined } from '@ant-design/icons'
 import type { TableColumnsType, TableProps } from 'antd'
 import ExamModal from './ExamModal'
-import searchECI from '../api/searchECI'
+import { searchECI } from '../api/ECI'
 
 const { Option } = Select
 const { Search } = Input
@@ -54,7 +54,8 @@ const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter,
 }
 
 // *** MAIN COMPONENT ***
-const ExamTable: React.FC<Props> = ({ cn, table, deleteRow, handleTableInput }) => { 
+const ExamTable: React.FC<Props> = ({ cn, table, deleteRow, handleTableInput }) => {
+  const today = dayjs().format('YYYY-MM-DD') 
   const [open, setOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
   const [modalData, setModalData] = useState<KintoneTypes.ECI[]>([])
@@ -106,7 +107,7 @@ const ExamTable: React.FC<Props> = ({ cn, table, deleteRow, handleTableInput }) 
           disabled={!canEdit.includes(cell.檢驗單狀態.value)}
         >
           <Option value="預開">預開</Option>
-          <Option value="急開">急開</Option>
+          <Option value="急開" disabled={cell.檢驗日期.value !== today}>急開</Option>
           <Option value="退單">退單</Option>
         </Select>
       ),

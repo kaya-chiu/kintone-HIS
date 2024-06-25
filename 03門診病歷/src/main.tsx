@@ -11,6 +11,7 @@ import TreaDiv from './components/TreaDiv'
 import payStatusHandler from './handlers/payStatusHandler'
 import GetBalanceBtn from './components/GetBalanceBtn'
 import mediStatusHandler from './handlers/mediStatusHandler'
+import ExamOrderBtn from './components/ExamOrderBtn'
 
 // 客製化表格
 kintone.events.on(config.events.all.show, event => {
@@ -24,6 +25,12 @@ kintone.events.on(config.events.all.show, event => {
   ReactDOM.createRoot(mediSpaceEl!).render(<MediDiv event={event}/>)
   ReactDOM.createRoot(treaSpaceEl!).render(<TreaDiv event={event}/>)
   ReactDOM.createRoot(getbSpaceEl!).render(<GetBalanceBtn event={event}/>)
+})
+// 急開抽血單按鈕
+kintone.events.on(['app.record.detail.show', 'mobile.app.detail.show'], event => {
+  const mobile = isMobile(event)
+  const examSpaceEl = getSpaceElement(config.sp.exam, mobile)
+  ReactDOM.createRoot(examSpaceEl!).render(<ExamOrderBtn event={event}/>)
 })
 // 編輯畫面隱藏原生表格
 kintone.events.on(config.events.all.show, event => {
