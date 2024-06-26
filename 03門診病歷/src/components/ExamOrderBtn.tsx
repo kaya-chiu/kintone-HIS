@@ -21,7 +21,7 @@ const ExamOrderBtn: React.FC<Props> = ({ event }) => {
   const recordId = event.record!.$id.value
   const table = event.record!.檢驗.value
   const cn = event.record!.病歷號碼.value
-  const opdId = event.record!.病歷記錄流水號.value
+  const opdNum = event.record!.病歷記錄流水號.value
   const urgentInit = getUrgent(table)
   const [urgent, setUrgent] = useState<KintoneTypes.ExamTable[]>(urgentInit)
 
@@ -47,13 +47,13 @@ const ExamOrderBtn: React.FC<Props> = ({ event }) => {
             showLoaderOnConfirm: true,
             preConfirm: async () => {
               try {
-                const res = await orderExam({ cn, opdId, rows: urgent, updateRows: setUrgent })
+                const res = await orderExam({ cn, opdNum, rows: urgent })
                 if (!res.ok) {
                   return Swal.showValidationMessage(`
                     開單異常，請確認檢驗報到台：${res.err!}
                   `)
                 }
-                return res
+                return setUrgent(res.rows!)
               } catch (err) {
                 Swal.showValidationMessage(`
                   開單異常，請確認檢驗報到台：${err}

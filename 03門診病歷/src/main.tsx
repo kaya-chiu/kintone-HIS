@@ -26,17 +26,19 @@ kintone.events.on(config.events.all.show, event => {
   ReactDOM.createRoot(treaSpaceEl!).render(<TreaDiv event={event}/>)
   ReactDOM.createRoot(getbSpaceEl!).render(<GetBalanceBtn event={event}/>)
 })
+// 編輯畫面隱藏原生表格
+kintone.events.on(config.events.all.show, event => {
+  hideFields(['用藥', '處置', '檢驗'], event)
+  return event
+})
+
 // 急開抽血單按鈕
 kintone.events.on(['app.record.detail.show', 'mobile.app.detail.show'], event => {
   const mobile = isMobile(event)
   const examSpaceEl = getSpaceElement(config.sp.exam, mobile)
   ReactDOM.createRoot(examSpaceEl!).render(<ExamOrderBtn event={event}/>)
 })
-// 編輯畫面隱藏原生表格
-kintone.events.on(config.events.all.show, event => {
-  hideFields(['用藥', '處置', '檢驗'], event)
-  return event
-})
+
 // 檢查檢驗表格資料
 kintone.events.on(config.events.all.submit, examDataCheck)
 

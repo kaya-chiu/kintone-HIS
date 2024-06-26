@@ -3,12 +3,16 @@ import { KintoneTypes } from '../dts/types'
 
 type Params = {
   cn: string;
-  opdId: string;
-  rows: KintoneTypes.ExamTable[],
-  updateRows: React.Dispatch<React.SetStateAction<KintoneTypes.ExamTable[]>>
+  opdNum: string;
+  rows: KintoneTypes.ExamTable[]
 }
 type Group<T extends string> = {
   [key in T]?: { barcode: string }
+}
+type Return = {
+  ok: boolean;
+  rows?: KintoneTypes.ExamTable[];
+  err?: string;
 }
 
 const generateSerialNum = async (barcode: string) => {
@@ -24,7 +28,7 @@ const generateSerialNum = async (barcode: string) => {
   return `${barcode}-${newSerialNum}`
 }
 
-const orderExam = async ({ cn, opdId, rows, updateRows } : Params): Promise<{ ok: boolean, err?: string }> => {
+const orderExam = async ({ cn, opdNum, rows } : Params): Promise<Return> => {
   const groupedData: Group<string> = {}
 
   const rowProcess = async (row: KintoneTypes.ExamTable) => {
@@ -50,13 +54,12 @@ const orderExam = async ({ cn, opdId, rows, updateRows } : Params): Promise<{ ok
       code: row.value.檢驗代碼.value,
       barcode,
       serialNum,
-      orderOpdId: opdId
+      orderOpdNum: opdNum
     }
   
     await postECI(newRecord)
     row.value.檢驗單狀態.value = '已開'
     row.value.檢驗單號.value = serialNum
-    updateRows(rows)
   }
 
   try {
@@ -64,7 +67,7 @@ const orderExam = async ({ cn, opdId, rows, updateRows } : Params): Promise<{ ok
     for (const row of rows) {
       await rowProcess(row)
     }
-    return { ok: true }
+    return { ok: true, rows }
   } catch (err) {
     console.error('Error during processing:', err)
     const errMsg = (err as Error).message || '開立檢驗單時發生錯誤'

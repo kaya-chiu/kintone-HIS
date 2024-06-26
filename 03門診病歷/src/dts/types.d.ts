@@ -94,7 +94,7 @@ declare namespace KintoneTypes {
         id: string;
         value: {
           檢驗備註: kintone.fieldTypes.SingleLineText;
-          檢驗單號: kintone.fieldTypes.SingleLineText;
+          檢驗單號: kintone.fieldTypes.SingleLineText & { lookup?: true | 'CLEAR' };
           成數_檢驗: kintone.fieldTypes.Number;
           檢驗日期: kintone.fieldTypes.Date;
           檢驗單價: kintone.fieldTypes.Number;

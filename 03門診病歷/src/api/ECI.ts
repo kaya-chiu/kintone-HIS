@@ -25,8 +25,8 @@ type Post = {
   code: string,
   barcode: string,
   serialNum: string,
-  orderOpdId?: string,
-  cancelOpdId?: string
+  orderOpdNum?: string,
+  cancelOpdNum?: string
 }
 
 const req = new KintoneRestAPIClient({
@@ -101,13 +101,13 @@ export const getLastSerialNum = async (barcode: string) => {
   return record.檢驗單號.value
 }
 
-export const postECI = async ({ cn, date, code, barcode, serialNum, orderOpdId } : Post) => {
+export const postECI = async ({ cn, date, code, barcode, serialNum, orderOpdNum } : Post) => {
   const record: R = {
     檢驗單號: { type: 'SINGLE_LINE_TEXT', value: serialNum },
     病歷號碼: { type: 'SINGLE_LINE_TEXT', value: cn },
     檢驗日期: { type: 'DATE', value: date },
     檢驗代碼: { type: 'SINGLE_LINE_TEXT', value: code },
-    開單記錄: { type: 'SINGLE_LINE_TEXT', value: orderOpdId! },
+    開單記錄: { type: 'SINGLE_LINE_TEXT', value: orderOpdNum! },
     條碼號: { type: 'SINGLE_LINE_TEXT', value: barcode }
   }
 
