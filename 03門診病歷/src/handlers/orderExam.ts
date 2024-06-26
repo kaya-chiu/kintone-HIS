@@ -29,6 +29,8 @@ const generateSerialNum = async (barcode: string) => {
 }
 
 const orderExam = async ({ cn, opdNum, rows } : Params): Promise<Return> => {
+  if (rows.length === 0) return { ok: true, rows: [] }
+  
   const groupedData: Group<string> = {}
 
   const rowProcess = async (row: KintoneTypes.ExamTable) => {
@@ -69,7 +71,7 @@ const orderExam = async ({ cn, opdNum, rows } : Params): Promise<Return> => {
     }
     return { ok: true, rows }
   } catch (err) {
-    console.error('Error during processing:', err)
+    console.error('orderExam:', err)
     const errMsg = (err as Error).message || '開立檢驗單時發生錯誤'
     return { ok: false, err: errMsg }
   }

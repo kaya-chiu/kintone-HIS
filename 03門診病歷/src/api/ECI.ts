@@ -10,13 +10,13 @@ type Params = {
 }
 
 type R = {
-  檢驗單號: kintone.fieldTypes.SingleLineText;
-  病歷號碼: kintone.fieldTypes.SingleLineText;
-  檢驗日期: kintone.fieldTypes.Date;
-  檢驗代碼: kintone.fieldTypes.SingleLineText;
+  檢驗單號?: kintone.fieldTypes.SingleLineText;
+  病歷號碼?: kintone.fieldTypes.SingleLineText;
+  檢驗日期?: kintone.fieldTypes.Date;
+  檢驗代碼?: kintone.fieldTypes.SingleLineText;
   開單記錄?: kintone.fieldTypes.SingleLineText;
   退單記錄?: kintone.fieldTypes.SingleLineText;
-  條碼號: kintone.fieldTypes.SingleLineText;
+  條碼號?: kintone.fieldTypes.SingleLineText;
 }
 
 type Post = {
@@ -25,8 +25,12 @@ type Post = {
   code: string,
   barcode: string,
   serialNum: string,
-  orderOpdNum?: string,
-  cancelOpdNum?: string
+  orderOpdNum: string
+}
+
+type Cancel = {
+  serialNum: string,
+  cancelOpdNum: string
 }
 
 const req = new KintoneRestAPIClient({
@@ -118,4 +122,51 @@ export const postECI = async ({ cn, date, code, barcode, serialNum, orderOpdNum 
 
   if (!res.id) throw new Error('抽血單建立失敗')
   return res
+}
+
+export const getECI = async (serialNum: string) => {
+  const res = await req.record.getRecords({
+    app: APP_ID,
+    query: `${config.fc.eci.檢驗單號} = "${serialNum}"`
+  })
+  if (res.records.length === 0) throw new Error('查無檢驗單記錄')
+  
+  return res.records[0] as KintoneTypes.ECI
+}
+
+export const cancelECI = async ({ serialNum, cancelOpdNum } : Cancel) => {
+  const updateKey = {
+    field: '檢驗單號',
+    value: serialNum
+  }
+  const record: R = {
+    退單記錄: { type: 'SINGLE_LINE_TEXT', value: cancelOpdNum }
+  }
+
+  return req.record.updateRecords({
+    app: APP_ID,
+    records: [
+      { updateKey, record }
+    ]
+  }).then(async res => {
+    if (!res.records) throw new Error('無法更新檢驗報到台之退單記錄')
+    
+    const id = res.records[0].id
+    const res2 = await req.record.updateRecordStatus({
+      app: APP_ID,
+      id,
+      action: '退單'
+    })
+    if (!res2.revision) throw new Error('無法更新檢驗報到台之狀態')
+
+    const res3 = await req.record.getRecord({
+      app: APP_ID,
+      id
+    })
+    const orderedOpdNum = (res3.record as KintoneTypes.ECI).開單記錄.value
+    
+    return { id, serialNum, orderedOpdNum }
+  }).catch(err => {
+    throw new Error(`檢驗報到台退單失敗：${err}`)
+  })
 }

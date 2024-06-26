@@ -6,6 +6,7 @@ import { KintoneTypes } from '../dts/types'
 import { errToast } from '../utils/myToast'
 import orderExam from './orderExam'
 import Swal from 'sweetalert2'
+import cancelExam from './cancelExam'
 
 type Currency = '台幣' | '美金'
 
@@ -58,8 +59,11 @@ const payStatusHandler = async (event: KintoneTypes.E.Opd) => {
 
         // *** ! 開立檢驗單 ! ***
         const examOrders = exam.filter(r => shouldOrder.includes(r.value.檢驗單狀態.value))
-        const res = await orderExam({ cn, opdNum, rows: examOrders })
-        if (!res.ok) throw new Error(res.err)
+        const resOrder = await orderExam({ cn, opdNum, rows: examOrders })
+        if (!resOrder.ok) throw new Error(resOrder.err)
+        // *** ! 處理檢驗退單 ! ***
+        const resCancel = await cancelExam({ opdNum, exam })
+        if (!resCancel.ok) throw new Error(resCancel.err)
 
         // 建立批價記錄
         await postPaymentLog(opdNum, cn)
@@ -79,7 +83,7 @@ const payStatusHandler = async (event: KintoneTypes.E.Opd) => {
             title: '處理中',
             didOpen: async () => {
               Swal.showLoading()
-              await putOpdExamTable(recordId, exam)
+              await putOpdExamTable(recordId, exam) 
               Swal.clickConfirm()
             }
           }).then(result => {
@@ -94,7 +98,7 @@ const payStatusHandler = async (event: KintoneTypes.E.Opd) => {
           }).catch(err => {
             errToast('處理失敗', err)
           })
-        }, 0)
+        }, 500)
         return event
 
       } catch (err) {
