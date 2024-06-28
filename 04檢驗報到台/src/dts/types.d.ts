@@ -26,6 +26,11 @@ declare namespace KintoneTypes {
     身份證號: KintoneRecordField.SingleLineText;
     檢驗名稱: KintoneRecordField.SingleLineText;
     主治醫師: KintoneRecordField.UserSelect;
+    分管組合: KintoneRecordField.SingleLineText;
+    狀態: {
+      type: 'STATUS',
+      value: string | null | undefined
+    }
   }
 
   type Fc<T extends string> = {

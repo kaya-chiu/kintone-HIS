@@ -1,0 +1,45 @@
+/* 調整 spacer 的最小高度為零 */
+div.row-gaia.clearFix-cybozu {
+  min-height: 0;
+}
+div.control-etc-gaia.control-spacer-field-gaia {
+  min-height: 0 !important;
+}
+
+/* 隱藏清單頁面編輯、刪除鈕 */
+/* div.recordlist-cell-edit-and-remove-action {
+  display: none;
+} */
+
+/* sweet alert 2 */
+.colored-toast.swal2-icon-success {
+  background-color: #a5dc86 !important;
+}
+
+.colored-toast.swal2-icon-error {
+  background-color: #f27474 !important;
+}
+
+.colored-toast.swal2-icon-warning {
+  background-color: #f8bb86 !important;
+}
+
+.colored-toast.swal2-icon-info {
+  background-color: #3fc3ee !important;
+}
+
+.colored-toast.swal2-icon-question {
+  background-color: #87adbd !important;
+}
+
+.colored-toast .swal2-title {
+  color: white;
+}
+
+.colored-toast .swal2-close {
+  color: white;
+}
+
+.colored-toast .swal2-html-container {
+  color: white;
+}
