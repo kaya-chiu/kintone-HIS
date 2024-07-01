@@ -4,11 +4,12 @@ import type { TableColumnsType } from 'antd'
 import { useEffect, useState } from 'react'
 import { getEciRecords } from '../api/eci'
 import SearchBar from './SearchBar'
+import { handleCheckin, handleReBarcode } from '../handlers/checkin'
 
 interface Props {
   event?: KintoneTypes.E.ECI;
 }
-interface DataType {
+export interface DataType {
   key: React.Key,
   date: string,
   cn: string,
@@ -20,6 +21,7 @@ interface DataType {
   orderedFrom: string,
   canceledFrom: string | null | undefined,
   recordId: string,
+  code: string,
   group: string
 }
 
@@ -90,6 +92,7 @@ const ExamTable: React.FC<Props> = () => {
     orderedFrom: r.開單記錄.value,
     canceledFrom: r.退單記錄.value,
     recordId: r.$id.value,
+    code: r.檢驗代碼.value,
     group: r.分管組合.value
   }))
 
@@ -117,8 +120,8 @@ const ExamTable: React.FC<Props> = () => {
     }}>
       <Flex gap="small" align="center">
         <SearchBar setRecords={setRecords}/>
-        <Button size="large" onClick={() => console.log(selected)}>檢驗報到</Button>
-        <Button size="large">重給條碼號</Button>
+        <Button size="large" onClick={() => handleCheckin(selected)}>檢驗報到</Button>
+        <Button size="large" onClick={() => handleReBarcode(selected)}>重給條碼號</Button>
       </Flex>
       <Table
         rowSelection={{

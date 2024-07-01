@@ -1,6 +1,7 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client'
 import { KintoneTypes } from '../dts/types'
 import config from '../config'
+import { DataType } from '../components/ExamTable'
 
 type SearchProps = {
   cn: string | null | undefined;
@@ -42,4 +43,17 @@ export const getEciRecords = async (searchProps: SearchProps) => {
     query
   })
   return res.records as KintoneTypes.ECI[]
+}
+
+export const putEciStatus = async (rows: DataType[]) => {
+  const records = rows.map(row => ({
+    id: row.recordId,
+    action: '報到'
+  }))
+  const res = await req.record.updateRecordsStatus({
+    app: APP_ID,
+    records
+  })
+
+  return res
 }

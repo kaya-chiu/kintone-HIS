@@ -16,7 +16,8 @@ interface Config {
     }
   },
   fc: {
-    eci: KintoneTypes.Fc<keyof KintoneTypes.ECI>
+    eci: KintoneTypes.Fc<keyof KintoneTypes.ECI>,
+    rep: KintoneTypes.Fc<keyof KintoneTypes.Report>
   },
   // sp: {
   // }
@@ -115,6 +116,32 @@ const config: Config = {
       主治醫師: '主治醫師',
       狀態: '狀態',
       分管組合: '分管組合'
+    },
+    rep: {
+      $id: '$id',
+      $revision: '$revision',
+      更新人: '更新人',
+      建立人: '建立人',
+      記錄號碼: '記錄號碼',
+      更新時間: '更新時間',
+      建立時間: '建立時間',
+      檢驗單號: '檢驗單號',
+      病歷號碼: '病歷號碼',
+      生日: '生日',
+      檢驗代碼: '檢驗代碼',
+      姓名: '姓名',
+      性別: '性別',
+      身份證號: '身份證號',
+      檢驗名稱: '檢驗名稱',
+      主治醫師: '主治醫師',
+      參考值下限: '參考值下限',
+      檢驗結果: '檢驗結果',
+      採檢時間: '採檢時間',
+      單位: '單位',
+      參考值上限: '參考值上限',
+      報告時間: '報告時間',
+      發報告者: '發報告者',
+      單窗: '單窗'
     }
   }
 }

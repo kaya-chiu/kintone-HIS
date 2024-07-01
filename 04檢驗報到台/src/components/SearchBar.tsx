@@ -22,10 +22,8 @@ const SearchBar: React.FC<Props> = ({ setRecords }) => {
     if (info?.source !== 'input') return
     const startDate = dateRange[0]?.format('YYYY-MM-DD') || dayjs().format('YYYY-MM-DD')
     const endDate = dateRange[1]?.format('YYYY-MM-DD') || startDate
-    console.log(value, startDate, '~', endDate)
 
     const result = await getEciRecords({ cn: value, startDate, endDate})
-    console.log(result)
     setRecords(result)
   }
 
