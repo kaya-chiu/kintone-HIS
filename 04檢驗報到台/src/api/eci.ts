@@ -103,6 +103,5 @@ export const reGenerateBarcode = async (rows: DataType[]) => {
   for (const row of rows) {
     await rowProcess(row)
   }
-  console.log(rows)
 }
 

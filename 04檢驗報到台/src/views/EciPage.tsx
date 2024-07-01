@@ -182,6 +182,7 @@ async function handleCheckin (rows: DataType[]) {
     const Swal = (await import('sweetalert2')).default
     const postReport = (await import('../api/report')).postReport
     const putEciStatus = (await import('../api/eci')).putEciStatus
+    const putOpdExamStatus = (await import('../api/opd')).putOpdExamStatus
 
     const listDivStyle = `
       display: flex;
@@ -205,6 +206,9 @@ async function handleCheckin (rows: DataType[]) {
         try {
           await postReport(rows)
           await putEciStatus(rows)
+          for (const row of rows) {
+            await putOpdExamStatus(row.orderedFrom, row.serialNum)
+          }
         } catch (err) {
           Swal.showValidationMessage(`
             發生錯誤：${err}
