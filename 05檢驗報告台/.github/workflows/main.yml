@@ -1,0 +1,28 @@
+name: Deploy to Kintone
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Install Kintone uploader
+        run: npm install -g @kintone/customize-uploader
+
+      - name: Build files
+        run: npm install && npm run build
+    
+      - name: Execute Kintone Deployment
+        run: |
+          kintone-customize-uploader --base-url ${{ secrets.KINTONE_BASE_URL }} --username ${{ secrets.KINTONE_USERNAME }} --password ${{ secrets.KINTONE_PASSWORD }} manifests/prod.json
+          

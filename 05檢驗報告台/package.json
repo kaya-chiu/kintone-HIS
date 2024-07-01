@@ -1,0 +1,38 @@
+{
+  "name": "05",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "source .env && kintone-customize-uploader --base-url $KINTONE_BASE_URL --username $KINTONE_USERNAME --password $KINTONE_PASSWORD ./mainfests/dev.json",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "watch": "vite build --watch",
+    "watch:dev": "npm run dev && run-p watch preview",
+    "update": "npm run build && source .env && kintone-customize-uploader --base-url $KINTONE_BASE_URL --username $KINTONE_USERNAME --password $KINTONE_PASSWORD ./mainfests/prod.json",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
+    "dts-gen": "source .env && kintone-dts-gen --base-url $KINTONE_BASE_URL -u $KINTONE_USERNAME -p $KINTONE_PASSWORD --app-id $KINTONE_APPID && mv fields.d.ts src/dts",
+    "set-type": "npm run dts-gen && node .copyTypes.cjs"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@kintone/customize-uploader": "^8.0.11",
+    "@kintone/dts-gen": "^8.0.10",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "kchelper": "^1.2.2",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vite-plugin-mkcert": "^1.17.5"
+  }
+}
