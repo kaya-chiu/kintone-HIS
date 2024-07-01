@@ -7,9 +7,9 @@ import EciPage from './views/EciPage'
 //   ReactDOM.createRoot(el!).render(<h1>Project init</h1>)
 // })
 
-kintone.events.on('app.record.index.show', event => {
+kintone.events.on('app.record.index.show', () => {
   const el = document.querySelector('#cus-div-eci')
   if (!el) return
 
-  ReactDOM.createRoot(el).render(<EciPage event={event}/>)
+  ReactDOM.createRoot(el).render(<EciPage />)
 })

@@ -1,6 +1,6 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client'
 import { KintoneTypes } from '../dts/types'
-import { DataType } from '../components/ExamTable'
+import { DataType } from '../views/EciPage'
 
 type Post = Pick<KintoneTypes.Report, '病歷號碼' | '檢驗代碼' | '檢驗單號'>
 

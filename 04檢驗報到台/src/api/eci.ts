@@ -1,7 +1,7 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client'
 import { KintoneTypes } from '../dts/types'
 import config from '../config'
-import { DataType } from '../components/ExamTable'
+import { DataType } from '../views/EciPage'
 
 type SearchProps = {
   cn: string | null | undefined;
