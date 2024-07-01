@@ -146,8 +146,14 @@ const EciPage: React.FC = () => {
             style={{ maxWidth: 300, margin: '10px 20px 10px 0' }}
             size="large"
           />
-          <Button size="large" onClick={() => handleCheckin(selected)}>檢驗報到</Button>
-          <Button size="large" onClick={() => handleReBarcode(selected)}>重給條碼號</Button>
+          <Button
+            size="large" onClick={() => handleCheckin(selected)}
+            disabled={selected.length === 0}
+          >檢驗報到</Button>
+          <Button
+            size="large" onClick={() => handleReBarcode(selected)}
+            disabled={selected.length === 0}
+          >重給條碼號</Button>
         </Flex>
         <Table
           rowSelection={{
@@ -217,7 +223,7 @@ async function handleCheckin (rows: DataType[]) {
         }).then(() => location.reload())
       }
     }).catch(err => {
-      errToast('檢驗表格更新失敗', err)
+      errToast('錯誤', err as string)
     })
   } catch (err) {
     errToast('報到失敗', err as string)
@@ -226,4 +232,52 @@ async function handleCheckin (rows: DataType[]) {
 
 async function handleReBarcode (rows: DataType[]) {
   console.log('re-barcode:', rows)
+  try {
+    const Swal = (await import('sweetalert2')).default
+    const reGenerateBarcode = (await import('../api/eci')).reGenerateBarcode
+
+    const listDivStyle = `
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      line-height: 0.1em;
+    `
+    let list = ''
+    rows.forEach(r => list += `<p>➤【${r.cn}】${r.exam}（${r.barcode}）</p>`)
+    Swal.fire({
+      title: '確定重給條碼號？',
+      html: `<div style="${listDivStyle}">${list}</div>`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '確定',
+      cancelButtonText: '取消',
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        try {
+          await reGenerateBarcode(rows)
+        } catch (err) {
+          Swal.showValidationMessage(`
+            發生錯誤：${err}
+          `)
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then(async result => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: '重給條碼號成功',
+          icon: 'success',
+          timer: 5000,
+          timerProgressBar: true,
+          allowOutsideClick: false
+        }).then(() => location.reload())
+      }
+    }).catch(err => {
+      errToast('錯誤', err as string)
+    })
+  } catch (err) {
+    errToast('重給條碼號失敗', err as string)
+  }
 }
