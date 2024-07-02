@@ -18,9 +18,7 @@ interface Config {
   fc: {
     eci: KintoneTypes.Fc<keyof KintoneTypes.ECI>,
     rep: KintoneTypes.Fc<keyof KintoneTypes.Report>
-  },
-  // sp: {
-  // }
+  }
 }
 
 const config: Config = {

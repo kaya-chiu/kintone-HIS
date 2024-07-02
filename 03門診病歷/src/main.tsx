@@ -47,6 +47,7 @@ kintone.events.on([
   ...config.events.all.submit, 
   ...config.events.process.proceed
 ], payStatusHandler)
+
 // 領藥狀態控制
 kintone.events.on([
   ...config.events.all.submit, 

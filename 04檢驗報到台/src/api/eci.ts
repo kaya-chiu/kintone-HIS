@@ -21,6 +21,7 @@ const req = new KintoneRestAPIClient({
 })
 
 export const getEciRecords = async (searchProps: SearchProps) => {
+  // 無搜尋參數時：預設回傳當日檢驗資料
   if (!searchProps) {
     const today = new Date().toISOString()
     const res = await req.record.getRecords({
@@ -33,10 +34,12 @@ export const getEciRecords = async (searchProps: SearchProps) => {
     return res.records as KintoneTypes.ECI[]
   }
 
+  // 有搜尋參數時：篩選範圍為起始日期～結束日期，若有輸入病歷號則多加入條件
   const { cn, startDate, endDate } = searchProps
   const start = new Date(startDate).toISOString()
   const end = new Date(endDate).toISOString()
   const patientQuery = cn ? `and ${config.fc.eci.病歷號碼} = "${cn}"` : ''
+
   const query = `
     ${config.fc.eci.檢驗日期} >= "${start}" and ${config.fc.eci.檢驗日期} <= "${end}"
     ${patientQuery}
@@ -58,7 +61,6 @@ export const putEciStatus = async (rows: DataType[]) => {
     app: APP_ID,
     records
   })
-
   return res
 }
 
@@ -68,7 +70,7 @@ export const getLastBarcode = async () => {
     query:`order by ${config.fc.eci.條碼號} desc limit 1`
   })
 
-  // 若無資料，回傳 null
+  // 若無資料，回傳 '0'
   if (res.records.length === 0) {
     return '0'
   }
@@ -79,6 +81,7 @@ export const getLastBarcode = async () => {
 
 export const reGenerateBarcode = async (rows: DataType[]) => {
   const groupedData: Group<string> = {}
+  
   async function rowProcess (row: DataType) {
     // 將病歷號和分管組合結合成組別key
     const key = `${row.cn}-${row.group}`

@@ -18,18 +18,21 @@ kintone.events.on([
   return event
 })
 
-// 流程執行「發報告」時，更新報告時間＆發報告者
+// 流程執行處理
 kintone.events.on(['app.record.detail.process.proceed'], (event: KintoneTypes.E.Report) => {
+  const { record, action } = event
   const user = kintone.getLoginUser()
 
-  if (event.action!.value === '發報告') {
-    event.record!.報告時間.value = new Date().toISOString()
-    event.record!.發報告者.value = [{ code: user.code, name: user.name}]
+  // 發報告：更新報告時間＆發報告者
+  if (action!.value === '發報告') {
+    record!.報告時間.value = new Date().toISOString()
+    record!.發報告者.value = [{ code: user.code, name: user.name }]
     return event
   }
   
-  if (event.action!.value === '撤回') {
-    if (event.record!.發報告者.value[0].code !== user.code) {
+  // 撤回：檢查登入使用者是否為發報告者（僅能由發報告者撤回報告）
+  if (action!.value === '撤回') {
+    if (record!.發報告者.value[0].code !== user.code) {
       event.error = '僅能由發報告者撤回'
       return event
     }
